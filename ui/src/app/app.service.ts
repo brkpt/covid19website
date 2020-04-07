@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/index';
+import { USDailySnapshot } from './covid/covid.component';
 
 /**
  * Class representing application service.
@@ -13,6 +14,8 @@ import { Observable } from 'rxjs/index';
 export class AppService {
   private serviceUrl = '/api/summary';
   private dataPostTestUrl = '/api/postTest';
+  private covidTracking = 'http://covidtracking.com';
+  private usData = '/api/v1/us/current.json';
 
   constructor(private http: HttpClient) {
   }
@@ -31,5 +34,9 @@ export class AppService {
    */
   public sendData(): Observable<any> {
     return this.http.post(this.dataPostTestUrl, {});
+  }
+
+  public getCountryData(): Observable<USDailySnapshot> { 
+    return this.http.get<USDailySnapshot>(this.covidTracking + this.usData);
   }
 }

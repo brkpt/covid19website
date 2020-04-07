@@ -8,22 +8,23 @@ import { RouteExampleComponent } from './route-example/route-example.component';
 
 import { AppService } from './app.service';
 import { AppHttpInterceptorService } from './http-interceptor.service';
+import { CovidComponent } from './covid/covid.component';
+import { StateComponent } from './state/state.component';
+import { CountryComponent } from './country/country.component';
 
 const routes: Routes = [
   {
-    path: 'scala',
-    component: RouteExampleComponent,
-    data: { technology: 'Scala' }
+    path: 'state',
+    component: StateComponent,
   },
   {
-    path: 'play',
-    component: RouteExampleComponent,
-    data: { technology: 'Play' }
+    path: 'country',
+    component: CountryComponent,
   },
   {
-    path: 'angular',
-    component: RouteExampleComponent,
-    data: { technology: 'Angular' }
+    path: 'covid',
+    component: CovidComponent,
+    data: { technology: 'Covid'}
   },
   {
     path: '**',
@@ -35,7 +36,10 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    RouteExampleComponent
+    RouteExampleComponent,
+    CovidComponent,
+    StateComponent,
+    CountryComponent
   ],
   imports: [
     BrowserModule,

@@ -1,14 +1,9 @@
 # Set the java args to high
-
 -Xmx512M
-
 -XX:MaxPermSize=256m
-
 -XX:ReservedCodeCacheSize=128m
-
-
+-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
 
 # Set the extra SBT options
-
 -Dsbt.log.format=true
 

@@ -1,0 +1,2 @@
+- "sbt run" to start
+
