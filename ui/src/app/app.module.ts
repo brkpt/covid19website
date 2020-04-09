@@ -28,7 +28,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/play',
+    redirectTo: '/state',
     pathMatch: 'full'
   }
 ];

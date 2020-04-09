@@ -8,6 +8,9 @@ GET     /                           controllers.FrontendController.index()
 # An example route (Prefix all API routes with apiPrefix defined in application.conf)
 GET     /api/summary                controllers.HomeController.appSummary
 
+# Get country data
+GET     /api/us/current             controllers.CoronaVirusController.usCurrent
+
 # Serve static assets under public directory
 GET     /*file                      controllers.FrontendController.assetOrDefault(file)
 

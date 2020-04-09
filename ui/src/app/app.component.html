@@ -1,15 +1,18 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <nav>
-    <a [routerLink]="['state']">
-      State
-    </a>
-    <a [routerLink]="['country']">
-      Country
-    </a>
-    <a [routerLink]="['covid']">
-      Covid
-    </a>
-  </nav>
-  <router-outlet></router-outlet>
+<div class='mainContainer'>
+  <div class='selectorContainer'>
+    <nav>
+      <a [routerLink]="['state']">
+        State
+      </a>
+      <a [routerLink]="['country']">
+        Country
+      </a>
+      <a [routerLink]="['covid']">
+        Covid
+      </a>
+    </nav>
+  </div>
+  <div class='displayContainer'>
+    <router-outlet></router-outlet>
+  </div>
 </div>
