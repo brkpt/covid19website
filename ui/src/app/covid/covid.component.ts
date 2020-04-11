@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppService } from '../app.service';
 
@@ -30,12 +30,16 @@ export class USDailySnapshot {
     styleUrls: ['./covid.component.css']
 })
 export class CovidComponent {
+    public positive: number = 0;
+    public negative: number = 0;
+    public death: number = 0;
+
     constructor(route: ActivatedRoute, private appService: AppService) {
     }
 
     public getCountryData() {
-        this.appService.getCountryData().subscribe((data: USDailySnapshot) => {
-            console.log(data);
+        this.appService.getCountryData().subscribe((data: USDailySnapshot[]) => {
+            this.death = data[0].death;
         });
     }
 }

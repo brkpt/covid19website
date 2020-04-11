@@ -14,8 +14,8 @@ import { USDailySnapshot } from './covid/covid.component';
 export class AppService {
   private serviceUrl = '/api/summary';
   private dataPostTestUrl = '/api/postTest';
-  private covidTracking = 'http://covidtracking.com';
-  private usData = '/api/v1/us/current.json';
+  private countryUrl = 'http://localhost:9000';
+  private usData = '/api/us/current';
 
   constructor(private http: HttpClient) {
   }
@@ -36,7 +36,7 @@ export class AppService {
     return this.http.post(this.dataPostTestUrl, {});
   }
 
-  public getCountryData(): Observable<USDailySnapshot> { 
-    return this.http.get<USDailySnapshot>(this.covidTracking + this.usData);
+  public getCountryData(): Observable<USDailySnapshot[]> { 
+    return this.http.get<USDailySnapshot[]>(this.countryUrl + this.usData);
   }
 }
