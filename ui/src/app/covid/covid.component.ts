@@ -33,6 +33,13 @@ export class CovidComponent {
     public positive: number = 0;
     public negative: number = 0;
     public death: number = 0;
+    public myData = [
+    ['London', 8136000],
+    ['New York', 8538000],
+    ['Paris', 2244000],
+    ['Berlin', 3470000],
+    ['Kairo', 19500000],
+    ];
 
     constructor(route: ActivatedRoute, private appService: AppService) {
     }
@@ -40,6 +47,8 @@ export class CovidComponent {
     public getCountryData() {
         this.appService.getCountryData().subscribe((data: USDailySnapshot[]) => {
             this.death = data[0].death;
+            this.positive = data[0].positive;
+            this.negative = data[0].negative;
         });
     }
 }

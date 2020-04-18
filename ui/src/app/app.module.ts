@@ -12,6 +12,8 @@ import { CovidComponent } from './covid/covid.component';
 import { StateComponent } from './state/state.component';
 import { CountryComponent } from './country/country.component';
 
+import { GoogleChartsModule } from 'angular-google-charts';
+
 const routes: Routes = [
   {
     path: 'state',
@@ -48,7 +50,8 @@ const routes: Routes = [
       cookieName: 'Csrf-Token',
       headerName: 'Csrf-Token',
     }),
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    GoogleChartsModule
   ],
   providers: [
     AppService,
