@@ -1,14 +1,7 @@
 <h1>This is my Covid page</h1>
 
-<button (click)='getCountryData()' >Click Me</button>
+<button (click)='getCountryDaily()' >Click Me</button>
 <hr>
 Death: {{death}}
-<google-chart 
-    type='BarChart'
-    [data]='myData'
-    [title]='Hello'
-    [width]=300
-    [height]=300
-></google-chart>
 <br>
-Foo
+<div id="deathsChart"></div>

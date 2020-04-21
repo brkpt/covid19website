@@ -10,6 +10,7 @@ GET     /api/summary                controllers.HomeController.appSummary
 
 # Get country data
 GET     /api/us/current             controllers.CoronaVirusController.usCurrent
+GET     /api/us/daily               controllers.CoronaVirusController.usDaily
 
 # Serve static assets under public directory
 GET     /*file                      controllers.FrontendController.assetOrDefault(file)

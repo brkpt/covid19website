@@ -13,8 +13,12 @@ class CoronaVirusController @Inject() (ws: WSClient, val cc: ControllerComponent
     def usCurrent = Action {
         val request: WSRequest = ws.url("http://covidtracking.com/api/v1/us/current.json")
         val result = request.addHeader("Accept", "application/json").get().toCompletableFuture.get()
-        val json = result.getBody
-        val foo = Json.parse(json)
-        Ok(foo)
+        Ok(Json.parse(result.getBody))
     }
+
+  def usDaily = Action {
+    val request: WSRequest = ws.url("http://covidtracking.com/api/us/daily")
+    val result = request.addHeader("Accept", "application/json").get().toCompletableFuture.get()
+    Ok(Json.parse(result.getBody))
+  }
 }
