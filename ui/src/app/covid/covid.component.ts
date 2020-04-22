@@ -50,6 +50,15 @@ export interface USHistoricalDaily {
     totalTestResulsIncrease: number;
 };
 
+class DailyDeaths {
+    public date: string = '';
+    public deaths: number = 0;
+    constructor(date: string, deaths: number) {
+        this.date = date;
+        this.deaths = deaths;
+    }
+};
+
 @Component({
     selector: 'covid-selector',
     templateUrl: './covid.component.html',
@@ -60,13 +69,14 @@ export class CovidComponent {
     public negative: number = 0;
     public death: number = 0;
     public allData: USHistoricalDaily[] = [];
+    public dailyDeaths: DailyDeaths[] = [];
     @Input() public data: object = [];
     
     private gLib: any;
 
     private options = {
-        width: 640,
-        height: 480,
+        width: 1000,
+        height: 500,
         title: 'Hello'
     }
 
@@ -84,24 +94,35 @@ export class CovidComponent {
         });
     }
 
+    public convertDate(oldDate: string) {
+        return oldDate.slice(4,6) + '-' + oldDate.slice(6,8) + '-' + oldDate.slice(0,4);
+    }
+
     public getCountryDaily() {
         this.appService.getCountryDaily().subscribe((data: USHistoricalDaily[]) => {
-            this.allData = data;
+            this.allData = data.sort((a: USHistoricalDaily, b: USHistoricalDaily) => {
+                return a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
+            });
+            this.dailyDeaths = [];
+            this.dailyDeaths.push(new DailyDeaths(this.convertDate(this.allData[0].date.toString()), this.allData[0].death));
+            for(let i = 1; i < this.allData.length; i++) {
+                let delta = this.allData[i].death - this.allData[i-1].death;
+                let dateStr = this.convertDate(this.allData[i].date.toString());
+                this.dailyDeaths.push(new DailyDeaths(dateStr, delta));
+            }
             this.refreshChart();
         })
     }
 
     public refreshChart() {
         let rawData: any[][]  = [['Date', 'Deaths']];
-        this.allData.sort((a: USHistoricalDaily, b: USHistoricalDaily) => {
-            a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
-        }).forEach( (datum: USHistoricalDaily) => {
-            let bar = [datum.date.toString(), datum.death];
+        this.dailyDeaths.forEach( (datum: DailyDeaths) => {
+            let bar = [datum.date, datum.deaths];
             rawData.push(bar);
-        })
+        });
 
         let newData = this.gLib.visualization.arrayToDataTable(rawData);
-        let chart = new this.gLib.visualization.LineChart(document.getElementById('deathsChart'));
+        let chart = new this.gLib.visualization.ColumnChart(document.getElementById('deathsChart'));
 
         chart.draw(newData, this.options);
     }
