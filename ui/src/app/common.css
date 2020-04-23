@@ -1,0 +1,9 @@
+@font-face {
+    font-family: sourceSansPro;
+    src: url(http://localhost:4200/assets/fonts/SourceSansPro-Light.ttf)
+}
+
+@font-face { 
+    font-family: sourceSansProBold;
+    src: url(http://localhost:4200/assets/fonts/SourceSansPro-Bold.ttf)
+}

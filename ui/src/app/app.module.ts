@@ -8,7 +8,6 @@ import { RouteExampleComponent } from './route-example/route-example.component';
 
 import { AppService } from './app.service';
 import { AppHttpInterceptorService } from './http-interceptor.service';
-import { CovidComponent } from './covid/covid.component';
 import { StateComponent } from './state/state.component';
 import { CountryComponent } from './country/country.component';
 
@@ -24,13 +23,8 @@ const routes: Routes = [
     component: CountryComponent,
   },
   {
-    path: 'covid',
-    component: CovidComponent,
-    data: { technology: 'Covid'}
-  },
-  {
     path: '**',
-    redirectTo: '/state',
+    redirectTo: '/country',
     pathMatch: 'full'
   }
 ];
@@ -39,7 +33,6 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     RouteExampleComponent,
-    CovidComponent,
     StateComponent,
     CountryComponent
   ],
