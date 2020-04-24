@@ -50,6 +50,15 @@ export interface USHistoricalDaily {
     totalTestResultsIncrease: number;
 };
 
+class TotalDeaths {
+  public date: string = '';
+  public deaths: number = 0;
+  constructor(date: string, deaths: number) {
+    this.date = date;
+    this.deaths = deaths;
+  }
+}
+
 class DailyDeaths {
     public date: string = '';
     public deaths: number = 0;
@@ -95,10 +104,11 @@ export class CountryComponent {
     public negative: number = 0;
     public death: number = 0;
     public allData: USHistoricalDaily[] = [];
+    public totalDeaths: TotalDeaths[] = [];
     public dailyDeaths: DailyDeaths[] = [];
     public dailyTesting: DailyTesting[] = [];
     public dailyPositive: DailyPositives[] = [];
-    
+
     private gLib: any;
 
     constructor(route: ActivatedRoute, private appService: AppService) {
@@ -131,6 +141,7 @@ export class CountryComponent {
             this.dailyTesting = [];
             this.dailyPositive = [];
             let startDate = this.convertDate(this.allData[0].date.toString());
+            this.totalDeaths.push(new TotalDeaths(startDate, this.allData[0].death));
             this.dailyDeaths.push(new DailyDeaths(startDate, this.allData[0].death, this.allData[0].death));
             this.dailyTesting.push(new DailyTesting(startDate,this.allData[0].posNeg, this.allData[0].positive, this.allData[0].negative));
             let basePositiveRate = this.allData[0].positiveIncrease/this.allData[0].totalTestResultsIncrease;
@@ -138,6 +149,7 @@ export class CountryComponent {
             for(let i = 1; i < this.allData.length; i++) {
                 let dateStr = this.convertDate(this.allData[i].date.toString());
                 let positiveRate = this.allData[i].positiveIncrease/this.allData[i].totalTestResultsIncrease;
+                this.totalDeaths.push(new TotalDeaths(dateStr, this.allData[i].death));
                 if(i > 2) {
                     let deathsma = (
                         this.allData[i-3].deathIncrease +
@@ -167,6 +179,26 @@ export class CountryComponent {
             // Collect daily testing
             this.refreshCharts();
         })
+    }
+
+    public refreshTotalDeathsChart() {
+        let rawData: any[][]  = [['Date', 'Deaths']];
+        this.totalDeaths.forEach( (datum: TotalDeaths) => {
+            let bar = [datum.date, datum.deaths];
+            rawData.push(bar);
+        });
+
+        let options = {
+            title: 'Total Deaths (US)',
+            width: 1100,
+            height: 700,
+            seriesType: 'bars',
+        }
+
+        let newData = this.gLib.visualization.arrayToDataTable(rawData);
+        let totalDeathChart = new this.gLib.visualization.ComboChart(document.getElementById('totalDeaths'));
+
+        totalDeathChart.draw(newData, options);
     }
 
     public refreshDailyDeathChart() {
@@ -203,7 +235,7 @@ export class CountryComponent {
             height: 700,
             seriesType: 'bars',
             isStacked: true,
-            series: { 
+            series: {
                 0: {
                     color: 'blue'
                 },
@@ -236,7 +268,7 @@ export class CountryComponent {
             width: 1100,
             height: 700,
             seriesType: 'bars',
-            series: { 
+            series: {
                 0: {
                     color: 'blue'
                 },
@@ -258,6 +290,7 @@ export class CountryComponent {
      * Refreshes the daily death chart
      */
     public refreshCharts() {
+        this.refreshTotalDeathsChart();
         this.refreshDailyDeathChart();
         this.refreshDailyPositiveChart();
         this.refreshDailyPositiveRateChart();
