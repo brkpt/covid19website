@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AppService } from '../app.service';
+import { AppService } from '../../app.service';
 
 export class USDailySnapshot {
     constructor() {}
@@ -113,16 +113,8 @@ export class CountryComponent {
 
     constructor(route: ActivatedRoute, private appService: AppService) {
         this.gLib = appService.getGoogle();
-        this.gLib.charts.load('current', {'packages': ['corechart']});
-        //this.gLib.charts.setOnLoadCallback(this.drawChart.bind(this));
-    }
-
-    public getCountryData() {
-        this.appService.getCountryData().subscribe((data: USDailySnapshot[]) => {
-            this.death = data[0].death;
-            this.positive = data[0].positive;
-            this.negative = data[0].negative;
-        });
+        this.gLib.charts.load('current', {'packages': ['corechart','table','bars','column']});
+        this.gLib.charts.setOnLoadCallback(this.getCountryDaily());
     }
 
     public convertDate(oldDate: string) {

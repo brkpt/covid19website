@@ -1,6 +1,7 @@
 # Set the java args to high
--Xmx512M
--XX:MaxPermSize=256m
+-Xms512M
+-Xmx1G
+-XX:+UseG1GC
 -XX:ReservedCodeCacheSize=128m
 -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
 

@@ -4,37 +4,32 @@ import { RouterModule, Routes } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { RouteExampleComponent } from './route-example/route-example.component';
-
 import { AppService } from './app.service';
 import { AppHttpInterceptorService } from './http-interceptor.service';
-import { StateComponent } from './state/state.component';
-import { CountryComponent } from './country/country.component';
-
-import { GoogleChartsModule } from 'angular-google-charts';
+import { CountryComponent } from './covid/country/country.component';
+import { StateComponent } from './covid/state/state.component';
 
 const routes: Routes = [
   {
-    path: 'state',
-    component: StateComponent,
-  },
-  {
     path: 'country',
-    component: CountryComponent,
+    component: CountryComponent
   },
   {
-    path: '**',
+    path: 'state',
+    component: StateComponent
+  },
+  {
+    path: '',
     redirectTo: '/country',
     pathMatch: 'full'
-  }
+  },
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    RouteExampleComponent,
-    StateComponent,
-    CountryComponent
+    CountryComponent,
+    StateComponent
   ],
   imports: [
     BrowserModule,
@@ -43,8 +38,10 @@ const routes: Routes = [
       cookieName: 'Csrf-Token',
       headerName: 'Csrf-Token',
     }),
-    RouterModule.forRoot(routes),
-    GoogleChartsModule
+    RouterModule.forRoot(
+      routes,
+      {enableTracing: true}
+    ),
   ],
   providers: [
     AppService,
