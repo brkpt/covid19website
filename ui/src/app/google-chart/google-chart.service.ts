@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ServiceModule } from './service.module';
 
 declare var google: any;
 
 @Injectable({
-  providedIn: ServiceModule
+  providedIn: 'root'
 })
 export class GoogleChartService {
   private google: any;

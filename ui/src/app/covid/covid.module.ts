@@ -9,4 +9,7 @@ import { CommonModule } from '@angular/common';
     CommonModule,
   ]
 })
-export class CovidModule { }
+export class CovidModule { 
+  constructor(){}
+}
+

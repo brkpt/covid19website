@@ -1,98 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AppService } from '../../app.service';
-
-export class USDailySnapshot {
-    constructor() {}
-    public positive: number = 0;
-    public negative: number = 0;
-    public pending: number = 0;
-    public hospitalizedCurrently: number = 0;
-    public hospitalizedCumulative: number = 0;
-    public inIcuCurrently: number = 0;
-    public inIcuCumulative: number = 0;
-    public onVentilatorCurrently: number = 0;
-    public onVentilatorCumulative: number = 0;
-    public recovered: number = 0;
-    public hash: number = 0;
-    public lastModified: string = '';
-    public death: number = 0;
-    public hospitalized: number = 0;
-    public total: number = 0;
-    public totalTestResults: number = 0;
-    public posNeg: number = 0;
-};
-
-export interface USHistoricalDaily {
-    date: number;
-    dateChecked: string;
-    death: number;
-    deathIncrease: number;
-    hash: string;
-    hospitalized: number;
-    hospitalizedCumulative: number;
-    hospitalizedCurrently: number;
-    hospitalizedIncrease: number;
-    inIcuCumulative: number;
-    inIcuCurrently: number;
-    negative: number;
-    negativeIncrease: number;
-    onVentilatorCumulative: number;
-    onVentilatorCurrently: number;
-    pending: number;
-    posNeg: number;
-    positive: number;
-    positiveIncrease: number;
-    recovered: number;
-    states: number;
-    total: number;
-    totalTestResults: number;
-    totalTestResultsIncrease: number;
-};
-
-class TotalDeaths {
-  public date: string = '';
-  public deaths: number = 0;
-  constructor(date: string, deaths: number) {
-    this.date = date;
-    this.deaths = deaths;
-  }
-}
-
-class DailyDeaths {
-    public date: string = '';
-    public deaths: number = 0;
-    public sma: number = 0;
-    constructor(date: string, deaths: number, sma: number) {
-        this.date = date;
-        this.deaths = deaths;
-        this.sma = sma;
-    }
-};
-
-class DailyTesting {
-    public date: string = '';
-    public tests: number = 0;
-    public positive: number = 0;
-    public sma: number = 0;
-    constructor(date: string, tests: number, positive: number, sma: number) {
-        this.date = date;
-        this.tests = tests;
-        this.positive = positive;
-        this.sma = sma;
-    }
-};
-
-class DailyPositives {
-    public date: string = '';
-    public positiveRate: number = 0;
-    public sma: number = 0;
-    constructor(date: string, positiveRate: number, sma: number) {
-        this.date = date;
-        this.positiveRate = positiveRate;
-        this.sma = sma;
-    }
-};
+import { GoogleChartService } from '../../google-chart/google-chart.service';
+import { 
+    CovidTrackingService,
+    DailyDeaths,
+    DailyPositives,
+    DailyTesting,
+    TotalDeaths,
+    USHistoricalDaily,
+} from 'src/app/covidtracking/covidtracking.service';
 
 @Component({
     selector: 'country-selector',
@@ -111,8 +27,12 @@ export class CountryComponent {
 
     private gLib: any;
 
-    constructor(route: ActivatedRoute, private appService: AppService) {
-        this.gLib = appService.getGoogle();
+    constructor(
+        route: ActivatedRoute, 
+        private chartServices: GoogleChartService, 
+        private covidTrackingServices: CovidTrackingService
+    ) {
+        this.gLib = chartServices.getGoogle();
         this.gLib.charts.load('current', {'packages': ['corechart','table','bars','column']});
         this.gLib.charts.setOnLoadCallback(this.getCountryDaily());
     }
@@ -122,7 +42,7 @@ export class CountryComponent {
     }
 
     public getCountryDaily() {
-        this.appService.getCountryDaily().subscribe((data: USHistoricalDaily[]) => {
+        this.covidTrackingServices.getCountryDaily().subscribe((data: USHistoricalDaily[]) => {
             // Collect the data
             this.allData = data.sort((a: USHistoricalDaily, b: USHistoricalDaily) => {
                 return a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
