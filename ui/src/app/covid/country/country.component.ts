@@ -3,12 +3,54 @@ import { ActivatedRoute } from '@angular/router';
 import { GoogleChartService } from '../../google-chart/google-chart.service';
 import { 
     CovidTrackingService,
-    DailyDeaths,
-    DailyPositives,
-    DailyTesting,
-    TotalDeaths,
     USHistoricalDaily,
 } from 'src/app/covidtracking/covidtracking.service';
+
+class TotalDeaths {
+  public date: string = '';
+  public deaths: number = 0;
+  constructor(date: string, deaths: number) {
+    this.date = date;
+    this.deaths = deaths;
+  }
+};
+
+class DailyDeaths {
+    public date: string = '';
+    public deaths: number = 0;
+    public day3sma: number = 0;
+    public day7sma: number = 0;
+    constructor(date: string, deaths: number, day3sma: number, day7sma: number) {
+        this.date = date;
+        this.deaths = deaths;
+        this.day3sma = day3sma;
+        this.day7sma = day7sma;
+    }
+};
+
+class DailyTesting {
+    public date: string = '';
+    public tests: number = 0;
+    public positive: number = 0;
+    public sma: number = 0;
+    constructor(date: string, tests: number, positive: number, sma: number) {
+        this.date = date;
+        this.tests = tests;
+        this.positive = positive;
+        this.sma = sma;
+    }
+};
+
+class DailyPositives {
+    public date: string = '';
+    public positiveRate: number = 0;
+    public sma: number = 0;
+    constructor(date: string, positiveRate: number, sma: number) {
+        this.date = date;
+        this.positiveRate = positiveRate;
+        this.sma = sma;
+    }
+};
 
 @Component({
     selector: 'country-selector',

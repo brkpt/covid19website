@@ -3,20 +3,23 @@
 # ~~~~
 
 # Serve index page from public directory
-GET     /                           controllers.FrontendController.index()
+GET     /                                controllers.FrontendController.index()
 
 # An example route (Prefix all API routes with apiPrefix defined in application.conf)
-GET     /api/summary                controllers.HomeController.appSummary
+GET     /api/summary                     controllers.HomeController.appSummary
 
 # Get country data
-GET     /api/us/current             controllers.CoronaVirusController.usCurrent
-GET     /api/us/daily               controllers.CoronaVirusController.usDaily
+GET     /api/us/current                  controllers.CoronaVirusController.usCurrent
+GET     /api/us/daily                    controllers.CoronaVirusController.usDaily
 
 # Get state data
-GET     /api/states/historical      controllers.CoronaVirusController.stateHistorical
+GET     /api/states/historical           controllers.CoronaVirusController.stateHistorical
+
+# Get state data
+GET     /api/states/:state/historical    controllers.CoronaVirusController.historicalByState(state: String)
 
 # Serve static assets under public directory
-GET     /*file                      controllers.FrontendController.assetOrDefault(file)
+GET     /*file                           controllers.FrontendController.assetOrDefault(file)
 
 # Test post request
-POST    /api/postTest               controllers.HomeController.postTest()
+POST    /api/postTest                    controllers.HomeController.postTest()

@@ -4,7 +4,6 @@ import { GoogleChartService } from '../../google-chart/google-chart.service';
 import { 
     CovidTrackingService,
     StateHistorical,
-    TotalDeaths
 } from 'src/app/covidtracking/covidtracking.service';
 
 @Component({
@@ -37,36 +36,53 @@ export class StateComponent {
         return oldDate.slice(4,6) + '-' + oldDate.slice(6,8) + '-' + oldDate.slice(0,4);
     }
 
+    private updateDailyDeathChart(stateData: StateHistorical[]) {
+        let rawData: any[][] = [['Date','Deaths']];
+        stateData.forEach( (d: StateHistorical) => {
+            rawData.push( [this.convertDate(d.date.toString()), d.death]);
+        });
+        let chartData = this.gLib.visualization.arrayToDataTable(rawData);
+
+        let options = {
+            title: 'Total Deaths (US)',
+            width: 1100,
+            height: 700,
+            seriesType: 'bars',
+        };
+
+        let totalDeathChart = new this.gLib.visualization.ComboChart(document.getElementById('totalDeaths'));
+
+        totalDeathChart.draw(chartData, options);
+    }
+
+    private updateDailyHospitalizedChart(stateData: StateHistorical[]) {
+        let rawData: any[][] = [['Date','Hospitalizations']];
+        stateData.forEach( (d: StateHistorical) => {
+            rawData.push( [this.convertDate(d.date.toString()), d.hospitalizedIncrease]);
+        });
+        let chartData = this.gLib.visualization.arrayToDataTable(rawData);
+
+        let options = {
+            title: 'Total Hospitalizations (UT)',
+            width: 1100,
+            height: 700,
+            seriesType: 'bars',
+        };
+
+        let totalDeathChart = new this.gLib.visualization.ComboChart(document.getElementById('hospitalizations'));
+
+        totalDeathChart.draw(chartData, options);
+
+    }
+    
     private getStateHistorical() {
-        this.covidTrackingServices.getStateHistorical().subscribe((data: StateHistorical[]) => {
-            // Collect the data
-            const utahData = data.filter((d: StateHistorical) => d.state == 'UT');
-            const stateData = utahData.sort((a: StateHistorical, b: StateHistorical) => {
+        this.covidTrackingServices.getHistoricalByState('ut').subscribe((data: StateHistorical[]) => {
+            const stateData = data.sort((a: StateHistorical, b: StateHistorical) => {
                 return a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
             });
 
-            let deaths: TotalDeaths[] = [];
-            for(let i=0; i < stateData.length; i++) {
-                deaths.push(new TotalDeaths(this.convertDate(stateData[i].date.toString()), stateData[i].death));
-            };
-
-            let rawData: any[][] = [['Date','Deaths']];
-            deaths.forEach( (d: TotalDeaths) => {
-                let data = [d.date, d.deaths];
-                rawData.push(data);
-            });
-
-            let options = {
-                title: 'Total Deaths (US)',
-                width: 1100,
-                height: 700,
-                seriesType: 'bars',
-            };
-
-            let newData = this.gLib.visualization.arrayToDataTable(rawData);
-            let totalDeathChart = new this.gLib.visualization.ComboChart(document.getElementById('totalDeaths'));
-
-            totalDeathChart.draw(newData, options);
+            this.updateDailyDeathChart(stateData);
+            this.updateDailyHospitalizedChart(stateData);
         });
     }
 }
