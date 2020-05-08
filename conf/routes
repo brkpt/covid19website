@@ -12,6 +12,9 @@ GET     /api/summary                controllers.HomeController.appSummary
 GET     /api/us/current             controllers.CoronaVirusController.usCurrent
 GET     /api/us/daily               controllers.CoronaVirusController.usDaily
 
+# Get state data
+GET     /api/states/historical      controllers.CoronaVirusController.stateHistorical
+
 # Serve static assets under public directory
 GET     /*file                      controllers.FrontendController.assetOrDefault(file)
 

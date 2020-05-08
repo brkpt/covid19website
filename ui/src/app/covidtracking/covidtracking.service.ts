@@ -58,16 +58,18 @@ export class TotalDeaths {
     this.date = date;
     this.deaths = deaths;
   }
-}
+};
 
 export class DailyDeaths {
     public date: string = '';
     public deaths: number = 0;
-    public sma: number = 0;
-    constructor(date: string, deaths: number, sma: number) {
+    public day3sma: number = 0;
+    public day7sma: number = 0;
+    constructor(date: string, deaths: number, day3sma: number, day7sma: number) {
         this.date = date;
         this.deaths = deaths;
-        this.sma = sma;
+        this.day3sma = day3sma;
+        this.day7sma = day7sma;
     }
 };
 
@@ -95,6 +97,33 @@ export class DailyPositives {
     }
 };
 
+export interface StateHistorical {
+  date: number;
+  state: string;
+  positive: number;
+  negative: number;
+  pending: number;
+  hospitalizedCurrently: number;
+  hospitalizedCumulative: number;
+  inIcuCurrently: number;
+  inIcuCumulative: number;
+  onVentilatorCurrently: number;
+  onVentilatorCumulative: number;
+  recovered: number;
+  hash: string;
+  dateChecked: string;
+  death: number;
+  hospitalized: number;
+  total: number;
+  totalTestResults: number;
+  posNeg: number;
+  fips: string;
+  deathIncrease: number;
+  negativeIncrease: number;
+  positiveIncrease: number;
+  totalTestResultsIncrease: number;
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -102,6 +131,7 @@ export class CovidTrackingService {
   private countryUrl = 'http://localhost:9000';
   private usData = '/api/us/current';
   private usDaily = '/api/us/daily';
+  private stateHistorical = '/api/states/historical';
 
   constructor(private http: HttpClient) {}
 
@@ -113,4 +143,7 @@ export class CovidTrackingService {
     return this.http.get<USHistoricalDaily[]>(this.countryUrl + this.usDaily);
   }
 
+  public getStateHistorical(): Observable<StateHistorical[]> {
+    return this.http.get<StateHistorical[]>(this.stateHistorical);
+  }
 }

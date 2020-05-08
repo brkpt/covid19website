@@ -25,16 +25,24 @@ export class CountryComponent {
     public dailyTesting: DailyTesting[] = [];
     public dailyPositive: DailyPositives[] = [];
 
-    private gLib: any;
+    private gLib: any = null;
 
     constructor(
         route: ActivatedRoute, 
         private chartServices: GoogleChartService, 
         private covidTrackingServices: CovidTrackingService
     ) {
-        this.gLib = chartServices.getGoogle();
-        this.gLib.charts.load('current', {'packages': ['corechart','table','bars','column']});
-        this.gLib.charts.setOnLoadCallback(this.getCountryDaily());
+        this.checkLoading();
+    }
+
+    private checkLoading() {
+        if(this.chartServices.getLoaded()) {
+            this.gLib = this.chartServices.getGoogle();
+            this.getCountryDaily();
+        } else {
+            // Check again in 3 seconds
+            setTimeout(this.checkLoading, 1000);
+        }
     }
 
     public convertDate(oldDate: string) {
@@ -54,8 +62,8 @@ export class CountryComponent {
             this.dailyPositive = [];
             let startDate = this.convertDate(this.allData[0].date.toString());
             this.totalDeaths.push(new TotalDeaths(startDate, this.allData[0].death));
-            this.dailyDeaths.push(new DailyDeaths(startDate, this.allData[0].death, this.allData[0].death));
-            this.dailyTesting.push(new DailyTesting(startDate,this.allData[0].posNeg, this.allData[0].positive, this.allData[0].negative));
+            this.dailyDeaths.push(new DailyDeaths(startDate, this.allData[0].death, this.allData[0].death, this.allData[0].death));
+            this.dailyTesting.push(new DailyTesting(startDate,this.allData[0].totalTestResults, this.allData[0].positive, this.allData[0].negative));
             let basePositiveRate = this.allData[0].positiveIncrease/this.allData[0].totalTestResultsIncrease;
             this.dailyPositive.push(new DailyPositives(startDate, basePositiveRate, basePositiveRate));
             for(let i = 1; i < this.allData.length; i++) {
@@ -63,11 +71,23 @@ export class CountryComponent {
                 let positiveRate = this.allData[i].positiveIncrease/this.allData[i].totalTestResultsIncrease;
                 this.totalDeaths.push(new TotalDeaths(dateStr, this.allData[i].death));
                 if(i > 2) {
-                    let deathsma = (
+                    let death3sma = (
                         this.allData[i-3].deathIncrease +
                         this.allData[i-2].deathIncrease +
                         this.allData[i-1].deathIncrease) / 3;
-                    this.dailyDeaths.push(new DailyDeaths(dateStr, this.allData[i].deathIncrease, deathsma));
+                    if(i > 7) {
+                        let death7sma = (
+                            this.allData[i-7].deathIncrease +
+                            this.allData[i-6].deathIncrease +
+                            this.allData[i-5].deathIncrease +
+                            this.allData[i-4].deathIncrease +
+                            this.allData[i-3].deathIncrease +
+                            this.allData[i-2].deathIncrease +
+                            this.allData[i-1].deathIncrease) / 7;
+                        this.dailyDeaths.push(new DailyDeaths(dateStr, this.allData[i].deathIncrease, death3sma, death7sma));
+                    } else {
+                        this.dailyDeaths.push(new DailyDeaths(dateStr, this.allData[i].deathIncrease, death3sma, death3sma));
+                    }
 
                     let positivesma = (
                         this.allData[i-3].positiveIncrease +
@@ -75,14 +95,15 @@ export class CountryComponent {
                         this.allData[i-1].positiveIncrease) / 3;
                     this.dailyTesting.push(new DailyTesting(dateStr, this.allData[i].totalTestResultsIncrease, this.allData[i].positiveIncrease, positivesma));
 
-                    let positiveRateSma = (
+                    let positiveRate3Sma = (
                         this.allData[i-3].positiveIncrease/this.allData[i-3].totalTestResultsIncrease +
                         this.allData[i-2].positiveIncrease/this.allData[i-2].totalTestResultsIncrease +
                         this.allData[i-1].positiveIncrease/this.allData[i-1].totalTestResultsIncrease
                     )/3;
-                    this.dailyPositive.push(new DailyPositives(dateStr, this.allData[i].positiveIncrease/this.allData[i].totalTestResultsIncrease, positiveRateSma));
+                    this.dailyPositive.push(new DailyPositives(dateStr, this.allData[i].positiveIncrease/this.allData[i].totalTestResultsIncrease, positiveRate3Sma));
+
                 } else {
-                    this.dailyDeaths.push(new DailyDeaths(dateStr, this.allData[i].deathIncrease, this.allData[i].deathIncrease));
+                    this.dailyDeaths.push(new DailyDeaths(dateStr, this.allData[i].deathIncrease, this.allData[i].deathIncrease, this.allData[i].deathIncrease));
                     this.dailyTesting.push(new DailyTesting(dateStr, this.allData[i].positiveIncrease, this.allData[i].positiveIncrease, this.allData[i].positiveIncrease));
                     this.dailyPositive.push(new DailyPositives(dateStr, positiveRate, positiveRate));
                 }
@@ -105,7 +126,7 @@ export class CountryComponent {
             width: 1100,
             height: 700,
             seriesType: 'bars',
-        }
+        };
 
         let newData = this.gLib.visualization.arrayToDataTable(rawData);
         let totalDeathChart = new this.gLib.visualization.ComboChart(document.getElementById('totalDeaths'));
@@ -114,9 +135,9 @@ export class CountryComponent {
     }
 
     public refreshDailyDeathChart() {
-        let rawData: any[][]  = [['Date', 'Deaths', 'SMA']];
+        let rawData: any[][]  = [['Date', 'Deaths', '3SMA', '7SMA']];
         this.dailyDeaths.forEach( (datum: DailyDeaths) => {
-            let bar = [datum.date, datum.deaths, datum.sma];
+            let bar = [datum.date, datum.deaths, datum.day3sma, datum.day7sma];
             rawData.push(bar);
         });
 
@@ -125,7 +146,16 @@ export class CountryComponent {
             width: 1100,
             height: 700,
             seriesType: 'bars',
-            series: { 1: {type: 'line'}}
+            series: { 
+                1: {
+                    type: 'line',
+                    color: 'green'
+                }, 
+                2: {
+                    type: 'line',
+                    color: 'orange'
+                }
+            }
         }
 
         let newData = this.gLib.visualization.arrayToDataTable(rawData);
