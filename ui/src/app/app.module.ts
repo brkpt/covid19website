@@ -10,6 +10,7 @@ import { CountryComponent } from './covid/country/country.component';
 import { StateComponent } from './covid/state/state.component';
 import { CountryDailyDeathsComponent} from './covid/country/countrydailydeaths/countrydailydeaths.component';
 import { CountryTotalDeathsComponent} from './covid/country/countrytotaldeaths/countrytotaldeaths.component';
+import { CountryTestingComponent} from './covid/country/countrytesting/countrytesting.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: 'countrydaily',
     component: CountryDailyDeathsComponent
+  },
+  {
+    path: 'countrytesting',
+    component: CountryTestingComponent
   },
   {
     path: 'country',
@@ -41,7 +46,8 @@ const routes: Routes = [
     CountryComponent,
     StateComponent,
     CountryDailyDeathsComponent,
-    CountryTotalDeathsComponent
+    CountryTotalDeathsComponent,
+    CountryTestingComponent
   ],
   imports: [
     BrowserModule,
