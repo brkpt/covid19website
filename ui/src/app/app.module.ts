@@ -8,8 +8,18 @@ import { AppService } from './app.service';
 import { AppHttpInterceptorService } from './http-interceptor.service';
 import { CountryComponent } from './covid/country/country.component';
 import { StateComponent } from './covid/state/state.component';
+import { CountryDailyDeathsComponent} from './covid/country/countrydailydeaths/countrydailydeaths.component';
+import { CountryTotalDeathsComponent} from './covid/country/countrytotaldeaths/countrytotaldeaths.component';
 
 const routes: Routes = [
+  {
+    path: 'countrydeath',
+    component: CountryTotalDeathsComponent
+  },
+  {
+    path: 'countrydaily',
+    component: CountryDailyDeathsComponent
+  },
   {
     path: 'country',
     component: CountryComponent
@@ -29,7 +39,9 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     CountryComponent,
-    StateComponent
+    StateComponent,
+    CountryDailyDeathsComponent,
+    CountryTotalDeathsComponent
   ],
   imports: [
     BrowserModule,
