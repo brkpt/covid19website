@@ -1,22 +1,27 @@
 <div class='mainContainer'>
   <div class='selectorContainer'>
-    <nav>
-      <a routerLink='/countrydeath' routerLinkActive='active'>
-        Country Deaths
-      </a>
-      <a routerLink='/countrydaily' routerLinkActive='active'>
-        Country Daily
-      </a>
-      <a routerLink='/countrytesting' routerLinkactive='active'>
-        Country Testing
-      </a>
-      <a routerLink='/state' routerLinkActive='active'>
-        State
-      </a>
-      <a routerLink='/country' routerLinkActive='active'>
-        Country
-      </a>
-    </nav>
+    <tbody>
+      <tr>
+        <td>
+          <a routerLink='/countrydeath' routerLinkActive='active'> Country Deaths </a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a routerLink='/countrydaily' routerLinkActive='active'> Country Daily </a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a routerLink='/countrytesting' routerLinkactive='active'> Country Testing </a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a routerLink='/state' routerLinkActive='active'> State </a>
+        </td>
+      </tr>
+    </tbody>
   </div>
   <div class='displayContainer'>
     <router-outlet></router-outlet>

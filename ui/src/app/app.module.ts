@@ -6,7 +6,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule } from '@angu
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
 import { AppHttpInterceptorService } from './http-interceptor.service';
-import { CountryComponent } from './covid/country/country.component';
 import { StateComponent } from './covid/state/state.component';
 import { CountryDailyDeathsComponent} from './covid/country/countrydailydeaths/countrydailydeaths.component';
 import { CountryTotalDeathsComponent} from './covid/country/countrytotaldeaths/countrytotaldeaths.component';
@@ -26,16 +25,12 @@ const routes: Routes = [
     component: CountryTestingComponent
   },
   {
-    path: 'country',
-    component: CountryComponent
-  },
-  {
     path: 'state',
     component: StateComponent
   },
   {
     path: '',
-    redirectTo: '/country',
+    redirectTo: '/countrydeath',
     pathMatch: 'full'
   },
 ];
@@ -43,7 +38,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    CountryComponent,
     StateComponent,
     CountryDailyDeathsComponent,
     CountryTotalDeathsComponent,
