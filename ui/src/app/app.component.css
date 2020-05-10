@@ -12,7 +12,13 @@
 }
 
 .selectorContainer a {
+  font-family: sourceSansPro;
   padding: 5px;
+  text-decoration: none;
+}
+
+.selectorContainer a:visited {
+  color: red;
 }
 
 .selectorContainer .active {
@@ -24,5 +30,5 @@
 }
 
 .displayContainer {
-  
+  font-family: sourceSansPro;
 }
