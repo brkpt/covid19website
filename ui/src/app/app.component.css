@@ -23,6 +23,7 @@
 
 .selectorContainer .active {
   background-color: lightgray;
+  border-radius: 25px;
 }
 
 .selectorContainer td {
