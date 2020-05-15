@@ -7,12 +7,13 @@ import {
 } from 'src/app/covidtracking/covidtracking.service';
 
 @Component({
-  selector: 'app-statehospitalized',
-  templateUrl: './statehospitalized.component.html',
-  styleUrls: ['./statehospitalized.component.css']
+  selector: 'app-stateicu',
+  templateUrl: './stateicu.component.html',
+  styleUrls: ['./stateicu.component.css']
 })
-export class StateHospitalizedComponent implements OnInit {
+export class StateIcuComponent implements OnInit {
   private gLib: any = null;
+
   constructor(
     route: ActivatedRoute, 
     private chartServices: GoogleChartService, 
@@ -43,24 +44,23 @@ export class StateHospitalizedComponent implements OnInit {
         return a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
       });
 
-    let rawData: any[][] = [['Date', 'Hospitalizations']];
+    let rawData: any[][] = [['Date', 'ICU']];
     stateData.forEach((d: StateHistorical) => {
       rawData.push([this.convertDate(d.date.toString()), d.hospitalizedIncrease]);
     });
     let chartData = this.gLib.visualization.arrayToDataTable(rawData);
 
     let options = {
-      title: 'Currently In Hospital (UT)',
+      title: 'Currently in ICU (UT)',
       width: 1100,
       height: 700,
       seriesType: 'bars',
     };
 
-    let totalDeathChart = new this.gLib.visualization.ComboChart(document.getElementById('hospitalizations'));
+    let icuChart = new this.gLib.visualization.ComboChart(document.getElementById('icu'));
 
-    totalDeathChart.draw(chartData, options);
+    icuChart.draw(chartData, options);
 
     });
   }
-
 }

@@ -49,7 +49,8 @@ export interface USHistoricalDaily {
     totalTestResultsIncrease: number;
 };
 
-
+// Check the Covid Tracking Project site for information on these fields
+// https://covidtracking.com/api#swaggerWrapper
 export interface StateHistorical {
   date: number;
   state: string;

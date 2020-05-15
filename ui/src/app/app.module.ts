@@ -11,6 +11,7 @@ import { CountryTotalDeathsComponent} from './covid/country/countrytotaldeaths/c
 import { CountryTestingComponent} from './covid/country/countrytesting/countrytesting.component';
 import { StateTotalDeathsComponent} from './covid/state/statedeaths/statetotaldeaths.component';
 import { StateHospitalizedComponent} from './covid/state/statehospitalized/statehospitalized.component';
+import { StateIcuComponent } from './covid/state/stateicu/stateicu.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,10 @@ const routes: Routes = [
     component: StateHospitalizedComponent
   },
   {
+    path: 'stateicu',
+    component: StateIcuComponent
+  },
+  {
     path: '',
     redirectTo: '/countrydeath',
     pathMatch: 'full'
@@ -47,7 +52,8 @@ const routes: Routes = [
     CountryTotalDeathsComponent,
     CountryTestingComponent,
     StateTotalDeathsComponent,
-    StateHospitalizedComponent
+    StateHospitalizedComponent,
+    StateIcuComponent
   ],
   imports: [
     BrowserModule,

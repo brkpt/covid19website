@@ -47,12 +47,12 @@ export class StateTotalDeathsComponent implements OnInit {
 
         let rawData: any[][] = [['Date','Deaths']];
         stateData.forEach( (d: StateHistorical) => {
-            rawData.push( [this.convertDate(d.date.toString()), d.death]);
+            rawData.push( [this.convertDate(d.date.toString()), d.deathIncrease]);
         });
         let chartData = this.gLib.visualization.arrayToDataTable(rawData);
 
         let options = {
-            title: 'Total Deaths (' + state + ')',
+            title: 'Daily Deaths (' + state + ')',
             width: 1100,
             height: 700,
             seriesType: 'bars',
