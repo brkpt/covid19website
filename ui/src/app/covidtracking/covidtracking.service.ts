@@ -83,7 +83,7 @@ export interface StateHistorical {
     providedIn: 'root'
 })
 export class CovidTrackingService {
-  private countryUrl = 'http://localhost:9000';
+  private countryUrl = 'http://ec2-3-95-10-127.compute-1.amazonaws.com:9000';
   private usData = '/api/us/current';
   private usDaily = '/api/us/daily';
   private stateHistorical = '/api/states/historical';
