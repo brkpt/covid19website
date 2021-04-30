@@ -896,6 +896,11 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
+"@types/google.visualization@0.0.43":
+  version "0.0.43"
+  resolved "https://registry.yarnpkg.com/@types/google.visualization/-/google.visualization-0.0.43.tgz#d4172f94292b68a49a5666033386ce177f0ead9d"
+  integrity sha512-SmQWGJ4UykOzChj+AVo5JB8vC0hDnI3hUT6auRD34mnyO/s9ll1i4cT1hSmng3ZXbxG7qAdOctNElOpD9xqJZQ==
+
 "@types/jasmine@*":
   version "3.4.4"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-3.4.4.tgz#be3fbd73e72725edb44e6f7f509cd52912d1550c"
@@ -1199,6 +1204,14 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
+
+angular-google-charts@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/angular-google-charts/-/angular-google-charts-0.1.6.tgz#acd84ab7c6d73eda332e8749ac7be09b7f53b59a"
+  integrity sha512-ToY5kw72CQqy0nse70PkQlzQ72+XQBxaATxOtSyhvkgNaf/8H2eGoMVkh0ug931vVNgTNoisrjlzQ/mpdXC0yA==
+  dependencies:
+    "@types/google.visualization" "0.0.43"
+    tslib "^1.9.0"
 
 ansi-colors@4.1.1:
   version "4.1.1"
@@ -3191,9 +3204,9 @@ faye-websocket@~0.11.1:
     websocket-driver ">=0.5.1"
 
 figgy-pudding@^3.4.1, figgy-pudding@^3.5.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/figgy-pudding/-/figgy-pudding-3.5.1.tgz#862470112901c727a0e495a80744bd5baa1d6790"
-  integrity sha512-vNKxJHTEKNThjfrdJwHc7brvM6eVevuO5nTj6ez8ZQ1qbXTvGthucRF7S4vf2cr71QVnT70V34v0S1DyQsti0w==
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/figgy-pudding/-/figgy-pudding-3.5.2.tgz#b4eee8148abb01dcf1d1ac34367d59e12fa61d6e"
+  integrity sha512-0btnI/H8f2pavGMN8w40mlSKOfTK2SVJmBfBeVIj3kNw0swwgzyRq0d5TJVOwodFmtvpPeWPN/MCcfuWF0Ezbw==
 
 figures@^3.0.0:
   version "3.0.0"
@@ -6903,9 +6916,9 @@ sshpk@^1.7.0:
     tweetnacl "~0.14.0"
 
 ssri@^6.0.0, ssri@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/ssri/-/ssri-6.0.1.tgz#2a3c41b28dd45b62b63676ecb74001265ae9edd8"
-  integrity sha512-3Wge10hNcT1Kur4PDFwEieXSCMCJs/7WvSACcrMYrNp+b8kDL1/0wJch5Ni2WrtwEa2IO8OsVfeKIciKCDx/QA==
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/ssri/-/ssri-6.0.2.tgz#157939134f20464e7301ddba3e90ffa8f7728ac5"
+  integrity sha512-cepbSq/neFK7xB6A50KHN0xHDotYzq58wWCa5LeWqnPrHG8GzfEjO/4O8kpmcGW+oaxkvhEJCWgbgNk4/ZV93Q==
   dependencies:
     figgy-pudding "^3.5.1"
 
