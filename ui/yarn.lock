@@ -896,6 +896,11 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
+"@types/google.visualization@0.0.43":
+  version "0.0.43"
+  resolved "https://registry.yarnpkg.com/@types/google.visualization/-/google.visualization-0.0.43.tgz#d4172f94292b68a49a5666033386ce177f0ead9d"
+  integrity sha512-SmQWGJ4UykOzChj+AVo5JB8vC0hDnI3hUT6auRD34mnyO/s9ll1i4cT1hSmng3ZXbxG7qAdOctNElOpD9xqJZQ==
+
 "@types/jasmine@*":
   version "3.4.4"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-3.4.4.tgz#be3fbd73e72725edb44e6f7f509cd52912d1550c"
@@ -1199,6 +1204,14 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
+
+angular-google-charts@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/angular-google-charts/-/angular-google-charts-0.1.6.tgz#acd84ab7c6d73eda332e8749ac7be09b7f53b59a"
+  integrity sha512-ToY5kw72CQqy0nse70PkQlzQ72+XQBxaATxOtSyhvkgNaf/8H2eGoMVkh0ug931vVNgTNoisrjlzQ/mpdXC0yA==
+  dependencies:
+    "@types/google.visualization" "0.0.43"
+    tslib "^1.9.0"
 
 ansi-colors@4.1.1:
   version "4.1.1"
@@ -3295,11 +3308,9 @@ flush-write-stream@^1.0.0:
     readable-stream "^2.3.6"
 
 follow-redirects@^1.0.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.9.0.tgz#8d5bcdc65b7108fe1508649c79c12d732dcedb4f"
-  integrity sha512-CRcPzsSIbXyVDl0QI01muNDu69S8trU4jArW9LpOt2WtC6LyUJetcIrmfHsRBx7/Jb6GHJUiuqyYxPooFfNt6A==
-  dependencies:
-    debug "^3.0.0"
+  version "1.14.8"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.8.tgz#016996fb9a11a100566398b1c6839337d7bfa8fc"
+  integrity sha512-1x0S9UVJHsQprFcEC/qnNzBLcIxsjAV905f/UkQxbclCsoTWlacCNOpQa/anodLl2uaEKFhfWOvM2Qg77+15zA==
 
 for-in@^1.0.2:
   version "1.0.2"
