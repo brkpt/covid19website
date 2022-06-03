@@ -174,12 +174,12 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/core@~8.2.10":
-  version "8.2.10"
-  resolved "https://registry.yarnpkg.com/@angular/core/-/core-8.2.10.tgz#b4e5303d69228d30362a64a1ae45f8e88a5f2e24"
-  integrity sha512-nUd/xZWIb1DHbr8agjVTvk4XUN9yBGEGQWN5ja5wJbPasoZC2GfiBHcmhttGHkocyB674d3x+xR2MvMvzEUdvw==
+"@angular/core@~11.0.5":
+  version "11.0.5"
+  resolved "https://registry.yarnpkg.com/@angular/core/-/core-11.0.5.tgz#b8c448c3cd4f6dae7327cc1ba4ee2aa29c8dbc26"
+  integrity sha512-XAXWQi7R3ucZXQwx9QK5jSKJeQyRJ53u2dQDpr7R5stzeCy1a5hrNOkZLg9zOTTPcth/6+FrOrRZP9SMdxtw3w==
   dependencies:
-    tslib "^1.9.0"
+    tslib "^2.0.0"
 
 "@angular/forms@~8.2.10":
   version "8.2.10"
@@ -896,6 +896,11 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
+"@types/google.visualization@0.0.43":
+  version "0.0.43"
+  resolved "https://registry.yarnpkg.com/@types/google.visualization/-/google.visualization-0.0.43.tgz#d4172f94292b68a49a5666033386ce177f0ead9d"
+  integrity sha512-SmQWGJ4UykOzChj+AVo5JB8vC0hDnI3hUT6auRD34mnyO/s9ll1i4cT1hSmng3ZXbxG7qAdOctNElOpD9xqJZQ==
+
 "@types/jasmine@*":
   version "3.4.4"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-3.4.4.tgz#be3fbd73e72725edb44e6f7f509cd52912d1550c"
@@ -1199,6 +1204,14 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
+
+angular-google-charts@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/angular-google-charts/-/angular-google-charts-0.1.6.tgz#acd84ab7c6d73eda332e8749ac7be09b7f53b59a"
+  integrity sha512-ToY5kw72CQqy0nse70PkQlzQ72+XQBxaATxOtSyhvkgNaf/8H2eGoMVkh0ug931vVNgTNoisrjlzQ/mpdXC0yA==
+  dependencies:
+    "@types/google.visualization" "0.0.43"
+    tslib "^1.9.0"
 
 ansi-colors@4.1.1:
   version "4.1.1"
@@ -7295,6 +7308,11 @@ tslib@1.10.0, tslib@^1.10.0, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
+
+tslib@^2.0.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.0.tgz#7cecaa7f073ce680a05847aa77be941098f36dc3"
+  integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
 
 tslint@~5.18.0:
   version "5.18.0"
